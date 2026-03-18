@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 700px;
+                 background-color: white;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#377eb8", "font": {"color": "black"}, "id": "Agaw", "label": "Agaw", "shape": "dot", "size": 10, "title": "Agaw\nDegree: 1\nInteractions: 1\nCommunity: 1"}, {"color": "#377eb8", "font": {"color": "black"}, "id": "Gumuz", "label": "Gumuz", "shape": "dot", "size": 16.635532333438686, "title": "Gumuz\nDegree: 4\nInteractions: 7\nCommunity: 1"}, {"color": "#4daf4a", "font": {"color": "black"}, "id": "Al-Shabaab", "label": "Al-Shabaab", "shape": "dot", "size": 15.567281192442506, "title": "Al-Shabaab\nDegree: 1\nInteractions: 6\nCommunity: 2"}, {"color": "#4daf4a", "font": {"color": "black"}, "id": "Government of Somalia", "label": "Government of Somalia", "shape": "dot", "size": 15.567281192442506, "title": "Government of Somalia\nDegree: 1\nInteractions: 6\nCommunity: 2"}, {"color": "#377eb8", "font": {"color": "black"}, "id": "Amhara", "label": "Amhara", "shape": "dot", "size": 14.33407575382444, "title": "Amhara\nDegree: 2\nInteractions: 5\nCommunity: 1"}, {"color": "#377eb8", "font": {"color": "black"}, "id": "Oromo", "label": "Oromo", "shape": "dot", "size": 11.090354888959125, "title": "Oromo\nDegree: 2\nInteractions: 3\nCommunity: 1"}, {"color": "#ff7f00", "font": {"color": "black"}, "id": "Burji", "label": "Burji", "shape": "dot", "size": 10, "title": "Burji\nDegree: 1\nInteractions: 1\nCommunity: 4"}, {"color": "#ff7f00", "font": {"color": "black"}, "id": "Guji", "label": "Guji", "shape": "dot", "size": 10, "title": "Guji\nDegree: 1\nInteractions: 1\nCommunity: 4"}, {"color": "#e41a1c", "font": {"color": "black"}, "id": "GLF", "label": "GLF", "shape": "dot", "size": 11.090354888959125, "title": "GLF\nDegree: 1\nInteractions: 3\nCommunity: 0"}, {"color": "#e41a1c", "font": {"color": "black"}, "id": "Government of Ethiopia", "label": "Government of Ethiopia", "shape": "dot", "size": 56.70727022940316, "title": "Government of Ethiopia\nDegree: 3\nInteractions: 1197\nCommunity: 0"}, {"color": "#e41a1c", "font": {"color": "black"}, "id": "OLA", "label": "OLA", "shape": "dot", "size": 49.65260741379942, "title": "OLA\nDegree: 1\nInteractions: 495\nCommunity: 0"}, {"color": "#e41a1c", "font": {"color": "black"}, "id": "TPLF", "label": "TPLF", "shape": "dot", "size": 52.408642680347235, "title": "TPLF\nDegree: 1\nInteractions: 699\nCommunity: 0"}, {"color": "#377eb8", "font": {"color": "black"}, "id": "Shinasha", "label": "Shinasha", "shape": "dot", "size": 10, "title": "Shinasha\nDegree: 1\nInteractions: 2\nCommunity: 1"}, {"color": "#984ea3", "font": {"color": "black"}, "id": "Murle", "label": "Murle", "shape": "dot", "size": 10, "title": "Murle\nDegree: 1\nInteractions: 1\nCommunity: 3"}, {"color": "#984ea3", "font": {"color": "black"}, "id": "Nuer", "label": "Nuer", "shape": "dot", "size": 10, "title": "Nuer\nDegree: 1\nInteractions: 1\nCommunity: 3"}]);
+                  edges = new vis.DataSet([{"from": "Agaw", "title": "Events: 1, Fatalities: 130", "to": "Gumuz", "width": 0.5545177444479562}, {"from": "Gumuz", "title": "Events: 3, Fatalities: 353", "to": "Amhara", "width": 1.1090354888959124}, {"from": "Gumuz", "title": "Events: 1, Fatalities: 222", "to": "Oromo", "width": 0.5545177444479562}, {"from": "Gumuz", "title": "Events: 2, Fatalities: 352", "to": "Shinasha", "width": 0.8788898309344879}, {"from": "Al-Shabaab", "title": "Events: 6, Fatalities: 3", "to": "Government of Somalia", "width": 1.5567281192442506}, {"from": "Amhara", "title": "Events: 2, Fatalities: 26", "to": "Oromo", "width": 0.8788898309344879}, {"from": "Burji", "title": "Events: 1, Fatalities: 8", "to": "Guji", "width": 0.5545177444479562}, {"from": "GLF", "title": "Events: 3, Fatalities: 42", "to": "Government of Ethiopia", "width": 1.1090354888959124}, {"from": "Government of Ethiopia", "title": "Events: 495, Fatalities: 1045", "to": "OLA", "width": 4.965260741379943}, {"from": "Government of Ethiopia", "title": "Events: 699, Fatalities: 307557", "to": "TPLF", "width": 5.2408642680347235}, {"from": "Murle", "title": "Events: 1, Fatalities: 8", "to": "Nuer", "width": 0.5545177444479562}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"forceAtlas2Based": {"gravitationalConstant": -100, "centralGravity": 0.01, "springLength": 200}, "solver": "forceAtlas2Based", "stabilization": {"iterations": 200}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
