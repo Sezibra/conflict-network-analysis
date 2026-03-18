@@ -118,7 +118,7 @@ This is Project 3 in a six-project computational social science portfolio for co
 | Project | Topic | Status |
 |---------|-------|--------|
 | 1 | [Conflict Event Data Analysis and Geospatial Visualization](https://github.com/Sezibra/conflict-event-analysis) | Complete |
-| 2 | [LLM-Powered Conflict Text Analysis] (https://github.com/Sezibra/conflict-text-analysis) | Complete |
+| 2 | [LLM-Powered Conflict Text Analysis](https://github.com/Sezibra/conflict-text-analysis) | Complete |
 | 3 | **Conflict Actor Network Analysis** (this repo) | **Complete** |
 | 4 | Conflict Forecasting with Machine Learning | Upcoming |
 | 5 | Causal Inference for Conflict with ML | Upcoming |
